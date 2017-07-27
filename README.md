@@ -1,7 +1,9 @@
 
 # Node Email
 
-A simple Node Express app packaged in a docker image, that exposes a simple rest api for sending emails.
+A simple Node Express app packaged in a docker image, that exposes a simple rest api for sending emails using the Mailgun api.
+
+This particular implementation is used as a backend for the RSVP form on the lashfordswedding.com
 
 ## Prerequisites
 
@@ -30,5 +32,5 @@ docker build -t lashford/node-email .
 ### Running the Docker Image
 
 ```bash
-docker run -p 8080:8080 -d lashford/node-email
+docker run -p 8080:8080 -e apiKey='mailgun-api-key' -e domain='mailgun-domain' lashford/node-email
 ```
