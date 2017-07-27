@@ -24,7 +24,7 @@ domain ? console.log("domain = "+ domain) : envVarError("domain");
 // Start Express App and expose API
 const app = express();
 app.get('/', (req, res) => {
-  res.send("Hello, this is the Lashford's Wedding RSVP API\n");
+  res.send("Hello, This Is The Lashford's Wedding RSVP API\n");
 });
 
 app.get('/rsvp', (req, res) => {

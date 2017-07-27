@@ -34,3 +34,9 @@ docker build -t lashford/node-email .
 ```bash
 docker run -p 8080:8080 -e apiKey='mailgun-api-key' -e domain='mailgun-domain' lashford/node-email
 ```
+
+### Example RSVP payload
+
+```curl
+curl localhost:8080/rsvp
+```
