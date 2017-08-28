@@ -2,6 +2,7 @@
 
 const express = require('express');
 const exit = require('exit');
+const bodyParser = require('body-parser');
 
 // Constants
 const PORT = 8080;
@@ -23,21 +24,36 @@ domain ? console.log("domain = "+ domain) : envVarError("domain");
 
 // Start Express App and expose API
 const app = express();
+app.use(bodyParser.json());
+
 app.get('/', (req, res) => {
   res.send("Hello, This Is The Lashford's Wedding RSVP API\n");
 });
 
-app.get('/rsvp', (req, res) => {
+app.post('/rsvp', (req, res) => {
+  //console.log("request body %j", req.body);
+
+  // File Append
+  var fs = require('fs');
+  var ts = new Date();
+  fs.appendFile(`./rsvp/${ts.getTime()}.txt`, 'new data', function (err) {
+    if (err) {
+      console.log("request body %j", req.body);
+    } else {
+      console.log("RSVP Completed");
+    }
+  })
+
   var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
-  var data = {
+  var responseData = {
     from: 'Alex & Katy <alexlashford@gmail.com>',
-    to: 'alexlashford@gmail.com',
+    to: `${req.body.email}`,
     subject: 'Thanks for the RSVP',
     text: "Hello,\n\nThanks for taking the time to RSVP, we have your responses.\n\nBe sure to check the website for more information\n\nwww.thelashfordswedding.com\n\nThanks\n\nAlex & Katy"
   };
-  mailgun.messages().send(data, function (error, body) {
+  mailgun.messages().send(responseData, function (error, body) {
     console.log(body);
-    res.send('OK\n');
+    res.send('Response Sent OK\n');
   });
 });
 
