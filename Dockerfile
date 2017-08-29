@@ -10,5 +10,7 @@ RUN npm install
 # Bundle app source
 COPY . .
 
+RUN mkdir ./rsvp
+
 EXPOSE 8080
 CMD [ "npm", "start" ]
