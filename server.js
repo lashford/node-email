@@ -3,6 +3,7 @@
 const express = require('express');
 const exit = require('exit');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 // Constants
 const PORT = 8080;
@@ -25,6 +26,7 @@ domain ? console.log("domain = "+ domain) : envVarError("domain");
 // Start Express App and expose API
 const app = express();
 app.use(bodyParser.json());
+app.use(cors());
 
 app.get('/', (req, res) => {
   res.send("Hello, This Is The Lashford's Wedding RSVP API\n");
