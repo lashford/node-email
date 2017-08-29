@@ -38,7 +38,7 @@ app.post('/rsvp', (req, res) => {
   // File Append
   var fs = require('fs');
   var ts = new Date();
-  fs.appendFile(`./rsvp/${ts.getTime()}.txt`, 'new data', function (err) {
+  fs.appendFile(`./rsvp/${ts.getTime()}.txt`, JSON.stringify(req.body), function (err) {
     if (err) {
       console.log("request body %j", req.body);
     } else {
